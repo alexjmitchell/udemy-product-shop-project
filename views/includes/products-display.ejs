@@ -1,0 +1,40 @@
+<% if(products.length > 0) { %>
+  <div class="grid">
+    <% for (const product of products) { %>
+      <article class="card product-item">
+        <header class="card__header">
+          <h1 class="product__title"><%= product.title ? product.title : "Book" %></h1>
+        </header>
+        <div class="card__image">
+          <img
+            src="<%= product.imageURL ? product.imageURL : 'assets/images/book_preview.png'%>"
+            alt="<%= product.title ? product.title : "Book" %>"
+          />
+        </div>
+        <div class="card__content">
+          <h2 class="product__price">$<%= product.price ? product.price : "19.99" %></h2>
+          <p class="product__description">
+            <%= product.description ? product.description : "A very interesting book about so many even more interesting things!" %>
+          </p>
+        </div>
+        <div class="card__actions">
+          <% if (path === "/admin/products") { %>
+            <a href="/admin/edit-product/<%= product.id %>?edit=true" class="btn">Edit</a>
+            <form action="/admin/delete-product" method="POST">
+              <input type="hidden" name="productId" value="<%= product.id %>" />
+              <button class="btn" type="submit">Delete</button>
+            </form>
+          <% } else { %>
+            <form action="/cart" method="POST">
+              <a href="/products/<%= product.id %>" class="btn">Details</a>
+              <button class="btn" type="submit">Add to Cart</button>
+              <input type="hidden" name="productId" value="<%= product.id %>" />
+            </form>
+          <% } %>
+        </div>
+      </article>
+    <% } %>
+  </div>
+<% } else { %>
+  <h1>No Products Found!</h1>
+<% } %>
