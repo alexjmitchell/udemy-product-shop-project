@@ -1,0 +1,31 @@
+<%- include('../includes/head.ejs') %> 
+  <%- include('../includes/navigation.ejs') %> 
+
+    <main>
+      <form class="product-form" action="/users/<% if (editing) { %>edit<% } else { %>new<% } %>" method="POST">
+        <div class="form-control">
+          <label for="name">Username</label>
+          <input type="text" name="name" id="name" value="<% if (editing) { %><%= user.name %> <% } %> "/>
+        </div>
+
+        <div class="form-control">
+          <label for="emailL">Email</label>
+          <input type="email" name="email" id="email" value="<% if (editing) { %><%= user.email %> <% } %> "/>
+        </div>
+
+        <% if (editing) { %> 
+          <input type="hidden" value="<%= user._id %>" name="userId" />
+        <% } %> 
+          
+
+        <button class="btn" type="submit">
+          <% if (editing) { %> 
+            Update
+          <% } else { %> 
+            Register
+          <% } %> 
+        </button>
+      </form>
+    </main>
+    
+<%- include('../includes/end.ejs') %>
